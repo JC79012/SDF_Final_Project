@@ -1,34 +1,38 @@
 package Banking;
 
+
 import java.util.Scanner;
 import java.util.Random;
+import java.text.DecimalFormat;
 
+
+//Banking class to access user information 
 public class Banking {
+	//creates private user name and their balance 
 	private String name; 
 	private double currentBalance; 
 	
+	//Creates user 
 	public Banking(String name, Double currentBalance) {
 		this.name = name;
 		this.currentBalance = currentBalance;
 	}
-	
+	//greets user & name 
 	public void greetings() {
 		System.out.println("Welcome " + this.name); 
 	}
+	//returns user balance
 	public double getBalance() {
 		return this.currentBalance;
 	}
-	
+	//calculates new balance after withdrawing
 	public void withdraw(double withdraw) {
 
-		this.currentBalance -= withdraw;
-		System.out.println("Amount withdrawn: $" + withdraw+ "\nCurrent Balance: $" + String.format("%.2f",this.currentBalance));
-		
+		this.currentBalance -= withdraw;	
 	}
-	
+	//calculates new balance after deposit 
 	public void deposit(double amount) {
 		this.currentBalance += amount;
-		System.out.println("Current balance: $" + String.format("%.2f",this.currentBalance));
 	}
 	
 }
@@ -37,15 +41,18 @@ public class Banking {
 class Access{
 	public static void main(String[] args) {
 		
+		//creates scanner, random, and decimalFormat objects 
 		Scanner scan = new Scanner(System.in);
 		Random rand = new Random();
+		String pattern = "##,###.00";
+		DecimalFormat form = new DecimalFormat(pattern);
+		
 		
 		System.out.print("Enter your name: ");
 		String name = scan.nextLine();
 		
 		double min = 0; 
-		double max = 1000000;
-		
+		double max = 10000;	
 		double balance = min +(max-min)*rand.nextDouble();
 		
 		Banking user = new Banking(name, balance);
@@ -74,12 +81,13 @@ class Access{
 			
 			
 			if(choice.equalsIgnoreCase("b")) {
-				System.out.println("Balance: $" + String.format("%.2f",user.getBalance()));
+				System.out.println("Balance: $" + form.format(user.getBalance()));
 			}
 			else if(choice.equalsIgnoreCase("d")) {
 				System.out.print("Enter amount to deposit: $");
 				double deposit = scan.nextDouble();
 				user.deposit(deposit);
+				System.out.println("Deposit amount: $" + form.format(deposit));
 				scan.nextLine();
 			}
 			else if(choice.equalsIgnoreCase("w")) {
@@ -89,11 +97,12 @@ class Access{
 					withdraw = scan.nextDouble();
 				}while(withdraw > user.getBalance());
 				user.withdraw(withdraw);
+				System.out.println("Amount Withdrawn: $" + form.format(withdraw));
 				scan.nextLine();
 			}
 			
 		}
-		System.out.println("Thank You!");
+		System.out.println("Thank You, Session closed");
 		
 		scan.close();
 		
