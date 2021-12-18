@@ -90,7 +90,7 @@ class Access{
 			if(choice.equalsIgnoreCase("b")) {
 				System.out.println("Balance: $" + form.format(user.getBalance()));
 			}
-			//calls deposit method
+			//calls deposit method and displays the amount deposited
 			else if(choice.equalsIgnoreCase("d")) {
 				System.out.print("Enter amount to deposit: $");
 				double deposit = scan.nextDouble();
@@ -98,7 +98,7 @@ class Access{
 				System.out.println("Deposit amount: $" + form.format(deposit));
 				scan.nextLine();
 			}
-			//calls withdraw 
+			//calls withdraw and displays the amount withdrawn 
 			else if(choice.equalsIgnoreCase("w")) {
 				double withdraw;
 				do {
